@@ -17,10 +17,10 @@
   --btn-default-hover-bg: transparent;
   --btn-default-hover-color: var(--link-hover-color);
   --btn-default-hover-border-color: var(--link-hover-color);
-  --highlight-background: #f0f0f0;
-  --highlight-foreground: #444;
-  --highlight-gutter-background: #dedede;
-  --highlight-gutter-foreground: #555;
+  --highlight-background: #fff;
+  --highlight-foreground: #000;
+  --highlight-gutter-background: #e5e5e5;
+  --highlight-gutter-foreground: #191919;
 }
 html {
   line-height: 1.15; /* 1 */
@@ -370,7 +370,7 @@ body:not(.sidebar-active) .sidebar-toggle:hover .toggle-line:last-child {
 }
 /*
 
-Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+Google Code style (c) Aahan Krish <geekpanth3r@gmail.com>
 
 */
 
@@ -378,94 +378,84 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #F0F0F0;
+  background: white;
+  color: black;
 }
 
-
-/* Base color: saturation 0; */
-
-.hljs,
-.hljs-subst {
-  color: #444;
-}
-
-.hljs-comment {
-  color: #888888;
+.hljs-comment,
+.hljs-quote {
+  color: #800;
 }
 
 .hljs-keyword,
-.hljs-attribute,
 .hljs-selector-tag,
-.hljs-meta-keyword,
-.hljs-doctag,
+.hljs-section,
+.hljs-title,
 .hljs-name {
-  font-weight: bold;
+  color: #008;
 }
 
+.hljs-variable,
+.hljs-template-variable {
+  color: #660;
+}
 
-/* User color: hue: 0 */
-
-.hljs-type,
 .hljs-string,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-regexp {
+  color: #080;
+}
+
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-meta,
 .hljs-number,
-.hljs-selector-id,
-.hljs-selector-class,
-.hljs-quote,
-.hljs-template-tag,
-.hljs-deletion {
-  color: #880000;
+.hljs-link {
+  color: #066;
 }
 
 .hljs-title,
-.hljs-section {
-  color: #880000;
-  font-weight: bold;
-}
-
-.hljs-regexp,
-.hljs-symbol,
-.hljs-variable,
-.hljs-template-variable,
-.hljs-link,
-.hljs-selector-attr,
-.hljs-selector-pseudo {
-  color: #BC6060;
-}
-
-
-/* Language color: hue: 90; */
-
-.hljs-literal {
-  color: #78A960;
-}
-
+.hljs-doctag,
+.hljs-type,
+.hljs-attr,
 .hljs-built_in,
-.hljs-bullet,
-.hljs-code,
-.hljs-addition {
-  color: #397300;
+.hljs-builtin-name,
+.hljs-params {
+  color: #606;
 }
 
-
-/* Meta color: hue: 200 */
-
-.hljs-meta {
-  color: #1f7199;
+.hljs-attribute,
+.hljs-subst {
+  color: #000;
 }
 
-.hljs-meta-string {
-  color: #4d99bf;
-}
-
-
-/* Misc effects */
-
-.hljs-emphasis {
+.hljs-formula {
+  background-color: #eee;
   font-style: italic;
 }
 
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #9B703F
+}
+
+.hljs-addition {
+  background-color: #baeeba;
+}
+
+.hljs-deletion {
+  background-color: #ffc8bd;
+}
+
+.hljs-doctag,
 .hljs-strong {
   font-weight: bold;
+}
+
+.hljs-emphasis {
+  font-style: italic;
 }
 
 code,
@@ -1440,12 +1430,12 @@ pre code {
 }
 .sidebar-toc-active .sidebar-nav-toc,
 .sidebar-overview-active .sidebar-nav-overview {
-  border-bottom-color: #87daff;
-  color: #87daff;
+  border-bottom-color: #e91e63;
+  color: #e91e63;
 }
 .sidebar-toc-active .sidebar-nav-toc:hover,
 .sidebar-overview-active .sidebar-nav-overview:hover {
-  color: #87daff;
+  color: #e91e63;
 }
 .sidebar-panel {
   display: none;
@@ -1483,7 +1473,7 @@ pre code {
   }
 }
 .sidebar-toggle:hover .toggle-line {
-  background: #87daff;
+  background: #e91e63;
 }
 .post-toc {
   font-size: 0.875em;
@@ -1519,14 +1509,14 @@ pre code {
   display: block;
 }
 .post-toc .nav .active > a {
-  border-bottom-color: #87daff;
-  color: #87daff;
+  border-bottom-color: #e91e63;
+  color: #e91e63;
 }
 .post-toc .nav .active-current > a {
-  color: #87daff;
+  color: #e91e63;
 }
 .post-toc .nav .active-current > a:hover {
-  color: #87daff;
+  color: #e91e63;
 }
 .site-state {
   display: flex;
@@ -1692,7 +1682,7 @@ pre code {
   }
 }
 .back-to-top:hover {
-  color: #87daff;
+  color: #e91e63;
 }
 .back-to-top.back-to-top-on {
   bottom: 19px;
@@ -2145,9 +2135,9 @@ pre code {
 }
 .reward-container button {
   background: transparent;
-  border: 2px solid #87daff;
+  border: 2px solid #e91e63;
   border-radius: 2px;
-  color: #87daff;
+  color: #e91e63;
   cursor: pointer;
   line-height: 2;
   outline: 0;
@@ -2156,7 +2146,7 @@ pre code {
   vertical-align: text-top;
 }
 .reward-container button:hover {
-  background: #87daff;
+  background: #e91e63;
   border: 2px solid transparent;
   color: #fff;
 }
@@ -2679,7 +2669,7 @@ hr {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff50df;
+  background: #2e7dff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
