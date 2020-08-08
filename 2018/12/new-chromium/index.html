@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"whitecodes.github.io","root":"/","scheme":"Mist","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false};
+  </script>
+
+  <meta name="description" content="Google 推出了新的Material Design，大量的圆角。不好看。chromium渐渐的也用上了圆角的设置。主要集中在标签和地址栏。 更新 chromium 71后，UI 固定成丑陋的圆角。这里记下中间处理这个UI的过程 最后的方案是回滚旧版本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="new chromium">
+<meta property="og:url" content="https://whitecodes.github.io/2018/12/new-chromium/index.html">
+<meta property="og:site_name" content="white blog">
+<meta property="og:description" content="Google 推出了新的Material Design，大量的圆角。不好看。chromium渐渐的也用上了圆角的设置。主要集中在标签和地址栏。 更新 chromium 71后，UI 固定成丑陋的圆角。这里记下中间处理这个UI的过程 最后的方案是回滚旧版本">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-12T13:56:12.000Z">
+<meta property="article:modified_time" content="2020-05-17T14:01:09.215Z">
+<meta property="article:author" content="white">
+<meta property="article:tag" content="Life">
+<meta property="article:tag" content="Code">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://whitecodes.github.io/2018/12/new-chromium/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>new chromium | white blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-80539342-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="white blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">white blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Not perfect but enough</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%84%E6%83%B3"><span class="nav-number">1.</span> <span class="nav-text">妄想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%BF%E4%BB%A3%E5%93%81"><span class="nav-number">2.</span> <span class="nav-text">替代品</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FireFox"><span class="nav-number">2.1.</span> <span class="nav-text">FireFox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vivaldi"><span class="nav-number">2.2.</span> <span class="nav-text">Vivaldi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Opera"><span class="nav-number">2.3.</span> <span class="nav-text">Opera</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chromium-%E9%99%8D%E7%BA%A7"><span class="nav-number">3.</span> <span class="nav-text">chromium 降级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chromium-71-%E4%B9%8B%E5%89%8D%E7%9A%84%E7%89%88%E6%9C%AC%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">chromium 71 之前的版本的处理</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">white</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">86</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whitecodes" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whitecodes" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/2309318914" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;2309318914" rel="noopener" target="_blank"><i class="weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/whitevening" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;whitevening" rel="noopener" target="_blank"><i class="twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://moe.cat/@white" title="Mastodon → https:&#x2F;&#x2F;moe.cat&#x2F;@white" rel="noopener" target="_blank"><i class="mastodon fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whitecodes.github.io/2018/12/new-chromium/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="white">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="white blog">
+    </span>
+
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          new chromium
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-12 21:56:12" itemprop="dateCreated datePublished" datetime="2018-12-12T21:56:12+08:00">2018-12-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-17 22:01:09" itemprop="dateModified" datetime="2020-05-17T22:01:09+08:00">2020-05-17</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><code>Google</code> 推出了新的<code>Material Design</code>，大量的圆角。不好看。<code>chromium</code>渐渐的也用上了圆角的设置。主要集中在标签和地址栏。</p>
+<p>更新 <code>chromium</code> 71后，UI 固定成丑陋的圆角。这里记下中间处理这个UI的过程</p>
+<p>最后的方案是回滚旧版本</p>
+<a id="more"></a>
+<h1 id="妄想"><a href="#妄想" class="headerlink" title="妄想"></a>妄想</h1><p><code>chromium</code>本身是开源的，于是就想有没有人fork并修改了UI。找了一圈，虽然找到个很多的抱怨，但是修改源码重新打包的？没有。</p>
+<p>于是开始不知量力的看看能不能自己编译版本。找到了<a target="_blank" rel="noopener" href="https://www.chromium.org/developers/how-tos/get-the-code">官方的编译说明</a>，看了一遍在<code>Linux</code>下的编译，放弃了……</p>
+<h1 id="替代品"><a href="#替代品" class="headerlink" title="替代品"></a>替代品</h1><p>既然不能自己编译就找找其他基于<code>chromium</code>的浏览器</p>
+<h2 id="FireFox"><a href="#FireFox" class="headerlink" title="FireFox"></a>FireFox</h2><p>首先试的就是和<code>chrome</code>对位的<code>firefox</code>。安装了<code>FireFox Developer Edition</code>。默认黑色的主题，看起来还行，至少没有<code>Material Design</code>那么圆润。然后开始自定义界面，关掉不需要功能。最显眼的就是要关掉<code>Pocket</code>。设置里各种设置，地址栏上的就是关不掉。</p>
+<p><code>Ghost</code>提供建议可以试试<code>ESR</code>，用<code>policies.json</code>来关闭附加的<code>Pocket</code>。</p>
+<p>当晚太晚了，计划第二天去试试。</p>
+<h2 id="Vivaldi"><a href="#Vivaldi" class="headerlink" title="Vivaldi"></a>Vivaldi</h2><p>第二天决定去试试<code>vivaldi</code>。</p>
+<blockquote>
+<p>Vivaldi is a new web browser from former Opera founder &amp; team members, based on Chromium and focused on personalization aspects.</p>
+</blockquote>
+<p>基于<code>chromium</code>开发的，而且颜值不低。</p>
+<p>安装<code>vivaldi</code>，然后开始自定义设置。界面上把各种附加的笔记之类的功能全部隐藏掉，眼不见心不烦。常用的<code>chromium</code>扩展也都安装上了。试用下来功能没问题，就是和<code>chromium</code>比，稍稍慢一点，特别是新建标签页的时候。<br>但是这个还可以接受。<del>毕竟颜值高</del></p>
+<p>比较烦人的地方就是，proxy 经常失效。</p>
+<h2 id="Opera"><a href="#Opera" class="headerlink" title="Opera"></a>Opera</h2><p>最后想要尝试下<code>opera</code>，毕竟换内核之前也是很好看的，当初界面也是很有特色的。</p>
+<p>下载安装了。打开迎面而来的是浓浓的国产风，各种预制的书签和链接。努力在设置里关闭了附加功能，新标签页还是<code>百度</code>。</p>
+<p>界面看起来还行，不算特别丑。看着界面，感觉有点像<code>Edge</code>。</p>
+<h1 id="chromium-降级"><a href="#chromium-降级" class="headerlink" title="chromium 降级"></a>chromium 降级</h1><p>剩下的方案就是<code>chromium</code>降级了。我知道<code>pacman</code>可以设置忽略某些包的升级，但是不清楚是不是支持降级或者安装制定版本的。</p>
+<p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Downgrading_packages_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Arch Wiki</a>上有写了是支持的，还有降级的软件/脚本</p>
+<p>使用<code>yay</code>安装<code>downgrade</code>，然后输入命令进行降级</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">downgrade chromium</span><br></pre></td></tr></table></figure>
+<p>在列出的版本中选择本地的版本，远程的会签名验证不通过</p>
+<p>依赖关系方面，<code>chromium</code>是独立的不用降级其他软件。</p>
+<h1 id="chromium-71-之前的版本的处理"><a href="#chromium-71-之前的版本的处理" class="headerlink" title="chromium 71 之前的版本的处理"></a>chromium 71 之前的版本的处理</h1><p><code>chromium</code> 70的版本默认界面还是<code>Material Design</code>风格的，输入<code>chrome://flags#top-chrome-md</code>，修改为<code>Normal</code>，重启<code>chromium</code>后就是原来的界面了。</p>
+<p>由于是降级，每次开启<code>chromium</code>都会提示：资料来着高版本什么的。按照网上的方法就基本使用正常</p>
+<ol>
+<li>关闭<code>chromium</code></li>
+<li>删除<code>~/.config/chromium/Default/Web Data</code></li>
+<li>启动<code>chromium</code>，重新登录账户</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Life/" rel="tag"># Life</a>
+              <a href="/tags/Code/" rel="tag"># Code</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/enter-december/" rel="prev" title="进入12月">
+      <i class="fa fa-chevron-left"></i> 进入12月
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/01/new-year/" rel="next" title="新年">
+      新年 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2018/12/new-chromium/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2018/12/new-chromium/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">white</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">68k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:02</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/firebase@7/firebase-app.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/firebase@7/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : 'AIzaSyCQBODP3i10hwL8grQFhO_qR03McmZVk3U',
+      projectId: 'hexo-count-f2bfc'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        let count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script data-pjax>
+    (function() {
+      const db = firebase.firestore();
+      const articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        const title = document.querySelector('.post-title').innerText.trim();
+        const doc = articles.doc(title);
+        let increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        const promises = [...document.querySelectorAll('.post-title')].map(element => {
+          const title = element.innerText.trim();
+          const doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          const metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/next-theme/pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>

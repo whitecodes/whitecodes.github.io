@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"whitecodes.github.io","root":"/","scheme":"Mist","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false};
+  </script>
+
+  <meta name="description" content="周四那天晚上github和steam登不上了，记录下处理过程。最后使用了archlinuxcn的repo中的chromium-vaapi 没有具体的编译记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装 chromium">
+<meta property="og:url" content="https://whitecodes.github.io/2020/03/install-chromium/index.html">
+<meta property="og:site_name" content="white blog">
+<meta property="og:description" content="周四那天晚上github和steam登不上了，记录下处理过程。最后使用了archlinuxcn的repo中的chromium-vaapi 没有具体的编译记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-08T07:12:35.000Z">
+<meta property="article:modified_time" content="2020-05-17T14:01:09.222Z">
+<meta property="article:author" content="white">
+<meta property="article:tag" content="Code">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://whitecodes.github.io/2020/03/install-chromium/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>安装 chromium | white blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-80539342-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="white blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">white blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Not perfect but enough</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE-github"><span class="nav-number">1.</span> <span class="nav-text">无法访问 github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%BE%E5%88%B0%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.</span> <span class="nav-text">找到原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91-chromium"><span class="nav-number">3.</span> <span class="nav-text">编译 chromium</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">重新安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-archlinuxcn"><span class="nav-number">4.1.</span> <span class="nav-text">使用 archlinuxcn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%AF%B9%E5%BA%94%E5%8C%85"><span class="nav-number">4.2.</span> <span class="nav-text">安装对应包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E7%A1%AC%E8%A7%A3%E6%92%AD%E6%94%BE"><span class="nav-number">4.3.</span> <span class="nav-text">验证硬解播放</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">white</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">86</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whitecodes" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whitecodes" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/2309318914" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;2309318914" rel="noopener" target="_blank"><i class="weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/whitevening" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;whitevening" rel="noopener" target="_blank"><i class="twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://moe.cat/@white" title="Mastodon → https:&#x2F;&#x2F;moe.cat&#x2F;@white" rel="noopener" target="_blank"><i class="mastodon fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whitecodes.github.io/2020/03/install-chromium/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="white">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="white blog">
+    </span>
+
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          安装 chromium
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-08 15:12:35" itemprop="dateCreated datePublished" datetime="2020-03-08T15:12:35+08:00">2020-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-17 22:01:09" itemprop="dateModified" datetime="2020-05-17T22:01:09+08:00">2020-05-17</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>周四那天晚上<code>github</code>和<code>steam</code>登不上了，记录下处理过程。<br>最后使用了<code>archlinuxcn</code>的<code>repo</code>中的<code>chromium-vaapi</code></p>
+<p><strong>没有具体的编译记录</strong></p>
+<a id="more"></a>
+<h2 id="无法访问-github"><a href="#无法访问-github" class="headerlink" title="无法访问 github"></a>无法访问 github</h2><p>晚上9点多的时候发现无法通过<code>chromium</code>访问<code>steam</code>。</p>
+<p>怀疑是被墙了，用<code>Proxy SwitchyOmega</code>切换到全局代理。还是不行。<br><code>YouTube</code>可以访问，说明代理没有问题。怀疑是<code>steam</code>网页的问题。</p>
+<p><code>google</code>找找有没有碰到相同问题的，发现<code>github</code>也访问不了。</p>
+<p>临时装了<code>FireFox</code>来测试，发现可以访问<code>github</code>和<code>steam</code>。</p>
+<p>怀疑是<code>chromium</code>的问题。命令行启动，发现有错误输出</p>
+<blockquote>
+<p>ERROR:ssl_client_socket_impl.cc(941)] handshake failed; returned -1, SSL error code 1, net_error -100</p>
+</blockquote>
+<p>对比可以访问的网站和不可以访问的网站，发现不可以访问的网站证书都是<code>DigiCert Inc</code>。按照这个思路尝试访问<code>Apple</code>官网，发现也不行。</p>
+<p>遇事不决想要重新安装<code>chromium-vaapi</code>。发现<code>AUR</code>中的<code>chromium-vaapi-bin</code>包已经删掉了。</p>
+<p>重装了<code>chromium</code>包，发现还是不行。</p>
+<h2 id="找到原因"><a href="#找到原因" class="headerlink" title="找到原因"></a>找到原因</h2><p>第二天清空<code>chromium</code>配置，发现可以正常访问。从<code>Google</code>同步了数据之后，又不行了。</p>
+<p>那就是同步的数据中造成了这个问题。开始排查</p>
+<p>停用了<code>Proxy SwitchyOmega</code>后，就正常了。<br>那问题就是<code>Proxy SwitchyOmega</code>和<code>clash</code>冲突了。想了一下，之后就单纯使用<code>clash</code>了，反正已经有了网址过滤切换代理的功能</p>
+<h2 id="编译-chromium"><a href="#编译-chromium" class="headerlink" title="编译 chromium"></a>编译 chromium</h2><p>为了查找问题，安装了没有硬件加速的<code>chromium</code>。<code>AUR</code>中的<code>chromium-vaapi-bin</code>包已经删掉了，只能手动编译<code>chromium-vaapi</code></p>
+<p>第一次编译，失败。</p>
+<blockquote>
+<p>fatal error: error in backend: IO failure on output stream: No space left on device</p>
+</blockquote>
+<p>记起来之前为了编译速度配置了在内存中编译，修改配置，然后重新编译</p>
+<p>编译的时候，有人说是</p>
+<blockquote>
+<p>今天digicert的ocsp/crl ip被墙了</p>
+</blockquote>
+<p>3个小时后，终于编译完成了。</p>
+<p><strong>下面是走过的弯路</strong><br>然后开始编译必要的<code>libva-vdpau-driver-chromium</code>，看<code>AUR</code><a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/chromium-vaapi/">页面</a>上的说明，我还需要手动修改脚本后再编译</p>
+<blockquote>
+<p>If you are having issues with NVidia, you need to build a patched libva-vdpau-driver-chromium</p>
+</blockquote>
+<p>先下载包，但是不安装</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman libva-vdpau-driver-chromium</span><br></pre></td></tr></table></figure>
+<p>在询问<code>diff</code>的取消掉</p>
+<p>然后修改下载回来的<code>PKGBUILD</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.cache/yay/libva-vdpau-driver-chromium</span><br><span class="line">nano PKGBUILD</span><br></pre></td></tr></table></figure>
+
+<p>添加<code>Nvidia</code>的<code>patch</code>。这个可以在<code>chromium-vaapi</code>的<a target="_blank" rel="noopener" href="https://bbs.archlinux.org/viewtopic.php?pid=1877774#p1877774">主题帖</a>中找到，复制回来保存为<code>my.patch</code><br>在<code>source</code>字段中添加<code>my.patch</code>，在<code>prepare()</code>字段添加下面的内容来启用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &quot;$&#123;srcdir&#125;&quot;</span><br><span class="line">patch -Np1 -i &quot;$&#123;srcdir&#125;&#x2F;my.patch&quot;</span><br><span class="line">cd ..&#x2F;</span><br></pre></td></tr></table></figure>
+<p>其中最后切换工作目录的操作不确定是不是对的</p>
+<p>手动编译并安装包</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">makepkg -si --skipchecksums</span><br></pre></td></tr></table></figure>
+
+<p>之后才发现是不需要上面这些操作的</p>
+<h2 id="重新安装"><a href="#重新安装" class="headerlink" title="重新安装"></a>重新安装</h2><p><code>chromium-vaapi</code>的页面上有提到<code>archlinuxcn</code>上有预编译包</p>
+<blockquote>
+<p>Precompiled binaries of this wonderful package are available on archlinuxcn repository. Enjoy.</p>
+</blockquote>
+<p><strong>最后的解决记录</strong></p>
+<h3 id="使用-archlinuxcn"><a href="#使用-archlinuxcn" class="headerlink" title="使用 archlinuxcn"></a>使用 archlinuxcn</h3><p>可以直接参考<code>archlinuxcn</code>在<code>github</code>上的<a target="_blank" rel="noopener" href="https://github.com/archlinuxcn/repo">使用教程</a>，也可以使用下面的方法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/pacman.d/mirrorlist</span><br><span class="line">nano /etc/pacman.d/mirrorlistcn</span><br></pre></td></tr></table></figure>
+<p>输入<a target="_blank" rel="noopener" href="https://github.com/archlinuxcn/mirrorlist-repo">中国源镜像列表</a>上的所有镜像，格式参考已有的<code>mirrorlist</code>。<br>然后修改<code>pacman</code>配置启用</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/pacman.cnf</span><br></pre></td></tr></table></figure>
+<p>仿照其他源输入下面的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[archlinuxcn]</span><br><span class="line">Include &#x3D; &#x2F;etc&#x2F;pacman.d&#x2F;mirrorlistcn</span><br></pre></td></tr></table></figure>
+
+<p>然后刷新<code>pacman</code>数据库，并导入密钥</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -Syy</span><br><span class="line">pacman -S archlinuxcn-keyring</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装对应包"><a href="#安装对应包" class="headerlink" title="安装对应包"></a>安装对应包</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yay chromium-vaapi</span><br><span class="line">yay libva-vdpau-driver-vp9</span><br></pre></td></tr></table></figure>
+<p>选择<code>archlinuxcn</code>的包进行安装</p>
+<h3 id="验证硬解播放"><a href="#验证硬解播放" class="headerlink" title="验证硬解播放"></a>验证硬解播放</h3><p>开一个视频网页，然后打开<a href="chrome://media-internals/">chrome://media-internals/</a>，查看对应网页的<code>Player Properties</code>。查看<code>kVideoDecoderName</code>显示的内容，如果是<code>MojoVideoDecoder</code>或者<code>GpuVideoDecoder</code>就是开启了硬解。具体可以参考<code>chromium-vaapi</code>的<a target="_blank" rel="noopener" href="https://bbs.archlinux.org/viewtopic.php?id=244031">主题贴</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Code/" rel="tag"># Code</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/mobile-game/" rel="prev" title="在电脑上玩手机游戏">
+      <i class="fa fa-chevron-left"></i> 在电脑上玩手机游戏
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/reinstall-arch-linux/" rel="next" title="重新安装 Arch Linux">
+      重新安装 Arch Linux <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="languages">
+    <label class="lang-select-label">
+      <i class="fa fa-language"></i>
+      <span>简体中文</span>
+      <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </label>
+    <select class="lang-select" data-canonical="">
+      
+        <option value="zh-CN" data-href="/2020/03/install-chromium/" selected="">
+          简体中文
+        </option>
+      
+        <option value="en" data-href="/en/2020/03/install-chromium/" selected="">
+          English
+        </option>
+      
+    </select>
+  </div>
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">white</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">68k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:02</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/firebase@7/firebase-app.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/firebase@7/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : 'AIzaSyCQBODP3i10hwL8grQFhO_qR03McmZVk3U',
+      projectId: 'hexo-count-f2bfc'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        let count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script data-pjax>
+    (function() {
+      const db = firebase.firestore();
+      const articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        const title = document.querySelector('.post-title').innerText.trim();
+        const doc = articles.doc(title);
+        let increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        const promises = [...document.querySelectorAll('.post-title')].map(element => {
+          const title = element.innerText.trim();
+          const doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          const metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/next-theme/pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>
