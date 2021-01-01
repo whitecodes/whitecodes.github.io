@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://whitecodes.github.io/"/>
-  <updated>2020-12-20T08:43:37.421Z</updated>
+  <updated>2021-01-01T13:36:49.036Z</updated>
   <id>https://whitecodes.github.io/</id>
   
   <author>
@@ -15,6 +15,52 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用MIUI</title>
+    <link href="https://whitecodes.github.io/2021/01/miui-root/"/>
+    <id>https://whitecodes.github.io/2021/01/miui-root/</id>
+    <published>2021-01-01T13:36:49.000Z</published>
+    <updated>2021-01-01T13:36:49.036Z</updated>
+    
+    <content type="html"><![CDATA[<p>买了新手机<code>Redmi K30 Pro Zoom Edition</code>，带的系统是<code>MIUI 12.0.9</code>，这里写下刷机使用的记录</p><a id="more"></a><h2 id="解锁Bootloader"><a href="#解锁Bootloader" class="headerlink" title="解锁Bootloader"></a>解锁Bootloader</h2><p>要刷机、<code>ROOT</code>的前提是解锁<code>Bootloader</code>。小米的解锁的方式就比较花时间，但是总比没有提供解锁方法的好。</p><h3 id="绑定小米账户"><a href="#绑定小米账户" class="headerlink" title="绑定小米账户"></a>绑定小米账户</h3><p>解锁需要在手机系统内绑定小米账户，绑定的时候还需要插入Sim卡。绑定页面的打开路径是<code>设置</code>-&gt;<code>更多设置</code>-&gt;<code>开发者选项</code>-&gt;<code>设备解锁状态</code></p><h3 id="下载解锁工具"><a href="#下载解锁工具" class="headerlink" title="下载解锁工具"></a>下载解锁工具</h3><p>小米官方只提供了在<code>windows</code>下使用的解锁工具，其他系统可以用第三方的解锁工具<a href="https://www.xiaomitool.com/V2/">XiaoMiTool V2</a></p><p>在<code>AUR</code>中也有这个工具<a href="https://aur.archlinux.org/packages/xiaomitool-v2/">xiaomitool-v2</a></p><h3 id="尝试解锁"><a href="#尝试解锁" class="headerlink" title="尝试解锁"></a>尝试解锁</h3><p>手机上开始<code>USB调试</code>，数据线连接。<br>命令行<code>ADB</code>检查连接了。<br>运行<code>xiamitool</code>。<br>嗯……需要登录，使用和之前绑定用的同一个账户。<br>工具带有引导的，一步步走下去，手机重启进入<code>fastboot</code>，然后工具就不动了，直到超时……</p><p>命令行手动用<code>sudo fastboot device</code>检查下设备连着的。然后仔细想想猜测工具也需要运行这个命令，那么工具也需要使用高权限运行。</p><p>用命令行添加<code>sudo</code>执行，结果是报错需要等待7天。</p><p>等呗……</p><p>在等的过程中尝试在不<code>ROOT</code>的情况下使用手机</p><p>继续等呗……</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;买了新手机&lt;code&gt;Redmi K30 Pro Zoom Edition&lt;/code&gt;，带的系统是&lt;code&gt;MIUI 12.0.9&lt;/code&gt;，这里写下刷机使用的记录&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="App" scheme="https://whitecodes.github.io/tags/App/"/>
+    
+      <category term="Code" scheme="https://whitecodes.github.io/tags/Code/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在没有ROOT权限的限制下使用MIUI</title>
+    <link href="https://whitecodes.github.io/2021/01/miui-without-root/"/>
+    <id>https://whitecodes.github.io/2021/01/miui-without-root/</id>
+    <published>2021-01-01T13:36:39.000Z</published>
+    <updated>2021-01-01T13:36:39.713Z</updated>
+    
+    <content type="html"><![CDATA[<p>在等待解锁<code>Bootloader</code>的时候，尝试在没有获得<code>ROOT</code>权限的情况下使用手机。这里记录下尝试过程。</p><a id="more"></a><h2 id="想要使用的App"><a href="#想要使用的App" class="headerlink" title="想要使用的App"></a>想要使用的App</h2><p><a href="https://appops.rikka.app/">App Ops</a></p><p><a href="https://play.google.com/store/apps/details?id=com.fb.fluid">Fluid Navigation Gestures</a></p><p><a href="https://sr.rikka.app/">Storage Isolation</a></p><p><a href="https://github.com/RikkaApps/WADB">WADB</a></p><p><a href="https://play.google.com/store/apps/details?id=web1n.stopapp">小黑屋</a></p><h2 id="尝试-Shizuku-绕过ROOT权限"><a href="#尝试-Shizuku-绕过ROOT权限" class="headerlink" title="尝试 Shizuku 绕过ROOT权限"></a>尝试 Shizuku 绕过ROOT权限</h2><p><strong>这是失败的尝试，建议直接跳过</strong></p><p>通过<code>Shizuku</code>可以使其他应用调用高权限的 API。启动<code>Shizuku</code>看介绍可以通过<code>ADB</code>命令来实现，可以不依赖系统的<code>root</code>。</p><p>在<code>Shizuku</code>的<a href="https://shizuku.rikka.app/download.html">下载页面</a>提供了4中下载方式：</p><ul><li><code>Google Play</code>在没有安装代理的情况下受网络影响不行</li><li><code>GitHub Release</code>尝试了，同样因为网络的原因不行</li><li><code>Coolapk</code>页面原本是提供<code>apk</code>文件的下载的，现在需要通过应用扫码才能下载，不行</li><li>剩下的就是<code>IzzyOnDroid F-Droid Repository</code>，幸好可以直接下载。</li></ul><p>接下来是运行<code>Shizuku</code>，提供了3种方式：</p><ul><li><code>ROOT</code>首先被排除，有<code>ROOT</code>权限也就没有这篇<code>blog</code>了</li><li><code>Wireless debugging</code>因为<code>MIUI</code>没有提供这个选项，虽然是基于<code>Android 10</code>的</li><li>剩下的选择就是使用<code>ADB</code>了</li></ul><ol><li>开启<code>开发者选项</code>：在<code>设置</code>-&gt;<code>我的设备</code>-&gt;<code>全部参数</code>页面上连续点击<code>MIUI 版本</code>就会进入<code>开发者模式</code>。</li><li>开启<code>ADB</code>选项：在<code>设置</code>-&gt;<code>更多设置</code>-&gt;<code>开发者选项</code>-&gt;<code>调试</code>页面打开<code>USB 调试</code>和<code>USB 调试（安全设置）</code></li><li>数据线连接手机和PC，在弹出的<code>USB 的用途</code>弹框中，从<code>仅限充电</code>修改为<code>传输文件（MTP）</code>。否则可能会连接失败</li><li>在PC上开终端输入<code>adb devices</code>检查有没有出现目标设备</li><li>输入命令启动<code>Shizuku</code></li></ol><blockquote><p>adb shell sh /data/user_de/0/moe.shizuku.privileged.api/start.sh</p></blockquote><p>一开始的时候连着线显示：<code>Shizuku</code>正在运行，拔掉线后就停止运行了。参考<a href="https://shizuku.rikka.app/zh-hans/guide/setup.html">用户指南</a>最后的方法</p><blockquote><p>你可以尝试打开网络 adb（使用指令<code>adb tcpip 5555</code>）后再启动 Shizuku。</p></blockquote><p>使用这个方法后的确可以保持<code>Shizuku</code>运行，但是在运行<code>App Ops</code>请求相关权限的时候发现没用。然后才看到了在<code>用户指南</code>上的说明</p><blockquote><p>对于 MIUI 11 及以上版本，你必须在 Shizuku 内授予使用者应用权限。这是因为自定义权限功能被破坏，参见 <a href="https://github.com/RikkaApps/Shizuku/issues/45">Shizuku #45</a> 和 <a href="https://github.com/android-in-china/Compatibility/issues/16">android-in-china/Compatibility #16</a></p></blockquote><p>到这里，我放弃了使用<code>Shizuku</code></p><h2 id="使用Google服务"><a href="#使用Google服务" class="headerlink" title="使用Google服务"></a>使用Google服务</h2><p><code>MIUI</code>在<code>设置</code>-&gt;<code>帐号与同步</code>-&gt;<code>谷歌基础服务</code>提供了一个开关。具体有什么作用不清楚，但是我还是先打开了。</p><p>在自带<code>应用商店</code>中可以搜索<code>Google</code>可以看到<code>Google Play 商店</code>。</p><p>代理用的是<code>v2rayNG</code>，网上找了几个都是在国内不能正常访问的，最后还是使用<code>奶牛快传</code>传了<code>apk</code>到手机中，手动安装。</p><p>这样基本就可以使用<code>Google</code>服务了。</p><h2 id="使用管理员模式绕过root"><a href="#使用管理员模式绕过root" class="headerlink" title="使用管理员模式绕过root"></a>使用管理员模式绕过root</h2><p>在<code>App Ops</code>中看到还有一个<code>托管设备管理员模式</code>就尝试用这个。<br>参考<a href="https://github.com/web1n/Stopapp-Docs/blob/master/Device%20Owner%20%EF%BC%88%E5%85%8D%20root%EF%BC%89%E6%A8%A1%E5%BC%8F%E8%AE%BE%E7%BD%AE.md">小黑屋免 Root 模式使用配置方法</a>来操作。</p><ol><li>开启<code>ADB</code>，手机上记得开启<code>USB 调试（安全设置）</code></li><li>注销所有登录的账户，包括小米账户</li><li>如果您之前设置过访客模式、应用双开或是多用户设置等，也需要一并关闭或删除</li><li>在电脑上执行命令：</li></ol><blockquote><p>adb shell dpm set-device-owner web1n.stopapp/.receiver.AdminReceiver</p></blockquote><p>现在<code>小黑屋</code>和<code>App Ops</code>都可以运行了。</p><p><code>FNG</code>在隐藏导航键的时候需要高权限，需要用到<code>ADB</code></p><blockquote><p>adb shell pm grant com.fb.fluid android.permission.WRITE_SECURE_SETTINGS</p></blockquote><p><code>Storage Isolation</code>和<code>WADB</code>都确切要求<code>ROOT</code>权限，无解。</p><p>在没有获取<code>ROOT</code>权限情况下，能做就到这里了。之后在解锁<code>Bootloader</code>前还有更多的使用，我也会更新在这里。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在等待解锁&lt;code&gt;Bootloader&lt;/code&gt;的时候，尝试在没有获得&lt;code&gt;ROOT&lt;/code&gt;权限的情况下使用手机。这里记录下尝试过程。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="App" scheme="https://whitecodes.github.io/tags/App/"/>
+    
+      <category term="Code" scheme="https://whitecodes.github.io/tags/Code/"/>
+    
+  </entry>
   
   <entry>
     <title>入冬</title>
@@ -185,11 +231,11 @@
     
     
     
-      <category term="App" scheme="https://whitecodes.github.io/tags/App/"/>
-    
       <category term="Life" scheme="https://whitecodes.github.io/tags/Life/"/>
     
       <category term="Work" scheme="https://whitecodes.github.io/tags/Work/"/>
+    
+      <category term="App" scheme="https://whitecodes.github.io/tags/App/"/>
     
   </entry>
   
@@ -210,13 +256,13 @@
     
     
     
-      <category term="Code" scheme="https://whitecodes.github.io/tags/Code/"/>
-    
       <category term="Life" scheme="https://whitecodes.github.io/tags/Life/"/>
     
       <category term="Work" scheme="https://whitecodes.github.io/tags/Work/"/>
     
       <category term="Drama" scheme="https://whitecodes.github.io/tags/Drama/"/>
+    
+      <category term="Code" scheme="https://whitecodes.github.io/tags/Code/"/>
     
   </entry>
   
@@ -260,9 +306,9 @@
     
     
     
-      <category term="Code" scheme="https://whitecodes.github.io/tags/Code/"/>
-    
       <category term="Hexo" scheme="https://whitecodes.github.io/tags/Hexo/"/>
+    
+      <category term="Code" scheme="https://whitecodes.github.io/tags/Code/"/>
     
   </entry>
   
@@ -417,54 +463,6 @@
     
     
       <category term="Code" scheme="https://whitecodes.github.io/tags/Code/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>春节之后</title>
-    <link href="https://whitecodes.github.io/2019/02/back-to-work/"/>
-    <id>https://whitecodes.github.io/2019/02/back-to-work/</id>
-    <published>2019-02-14T12:17:21.000Z</published>
-    <updated>2021-01-01T10:19:57.753Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="过年"><a href="#过年" class="headerlink" title="过年"></a>过年</h1><p>过年的时候没有提前定车票，临到走了才买车票。买错了车站，下车打开地图才发现不对。花钱叫车到了市中心才顺利回去。</p><p>过年倒没有发生什么值得写的东西。除了约看电影基本在家没有出门。</p><h1 id="流浪地球"><a href="#流浪地球" class="headerlink" title="流浪地球"></a>流浪地球</h1><p>上映第一天就去看了。片子本身可以，是值得去看得。设定NB，电影里面的细节值得好好看看。期望之后出导演剪辑版吧～</p><p>看完之后看了原著。电影的剧情在原著小说里就一句话。</p><h1 id="提前回杭"><a href="#提前回杭" class="headerlink" title="提前回杭"></a>提前回杭</h1><p>半路上才发现没有带药，就打算提前回杭</p><p>找了一个没有下雨的日子回了杭州。之后春节假期也没有出门。补番看剧过得还行。就是外卖的配送费贵了。</p><h1 id="早起"><a href="#早起" class="headerlink" title="早起"></a>早起</h1><p>假期的时候可以睡懒觉，上班了之后还是继续早起不能。</p><p>上班第一天，顺利打卡了，之后就是各种弹性请假。月底的时候，看看自己记下来的考勤记录，大概只有三四天按时打卡了。</p><p>过年之前，领导就打电话过来提醒 忘刷卡的记录有点多。</p><h1 id="三月"><a href="#三月" class="headerlink" title="三月"></a>三月</h1><p>那么，三月就……</p><p>大概还是会 早起不能 </p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;过年&quot;&gt;&lt;a href=&quot;#过年&quot; class=&quot;headerlink&quot; title=&quot;过年&quot;&gt;&lt;/a&gt;过年&lt;/h1&gt;&lt;p&gt;过年的时候没有提前定车票，临到走了才买车票。买错了车站，下车打开地图才发现不对。花钱叫车到了市中心才顺利回去。&lt;/p&gt;
-&lt;p&gt;过年倒没有发生
-      
-    
-    </summary>
-    
-    
-    
-      <category term="Life" scheme="https://whitecodes.github.io/tags/Life/"/>
-    
-      <category term="Work" scheme="https://whitecodes.github.io/tags/Work/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>入手键盘</title>
-    <link href="https://whitecodes.github.io/2019/02/buy-keybord/"/>
-    <id>https://whitecodes.github.io/2019/02/buy-keybord/</id>
-    <published>2019-02-11T09:26:12.000Z</published>
-    <updated>2021-01-01T10:20:05.273Z</updated>
-    
-    <content type="html"><![CDATA[<p>刚刚买了键盘，记一下入手的过程</p><a id="more"></a><h1 id="之前为什么不买"><a href="#之前为什么不买" class="headerlink" title="之前为什么不买"></a>之前为什么不买</h1><p>之前就有买键盘的想法，但是自己又不玩游戏<del>手残+脑惨伤不起</del>，笔记本的键盘又不是不能用，于是就一直拖着没有买。</p><h1 id="买支架"><a href="#买支架" class="headerlink" title="买支架"></a>买支架</h1><p>买的新笔记本没有支架。旧的支架前面阻挡的位置坏掉了，笔记本放上去会滑下来。旧笔记本是折了一段筷子插在那里。新笔记本就算了。而且旧的支架高度有点不够的样子，看屏幕还是要低头。时间长了脖子还是会酸。</p><p>于是考虑买新的支架。好多支架都是把笔记本后部支起来，看起来和旧的一样。这样感觉高度不够的。买的是整体加高的。考虑到结构坚固，没有买可调高度的。</p><p>屏幕抬高到合适的高度，但是还是有些不稳，特别是在使用键盘输入的时候。于是就考虑另外买个键盘了。而且因为是整体抬高，下方也有空间用来放置键盘。</p><h1 id="买键盘"><a href="#买键盘" class="headerlink" title="买键盘"></a>买键盘</h1><p>鉴于桌面的空间，考虑的是小键盘。60%键盘或类似的键盘配列其实选择不多。</p><h2 id="GH60"><a href="#GH60" class="headerlink" title="GH60"></a>GH60</h2><p>GH60 是组装键盘，感觉一开始就上全客制化步子有点大。而且没有官方的商店也有点不放心。部分方法甚至需要用到电烙铁。感觉太麻烦。</p><h2 id="Flico"><a href="#Flico" class="headerlink" title="Flico"></a>Flico</h2><p>大姐姐买了 <code>Flico minila air</code>。小键盘，为程序员定制。一切看起来都不错，除了价格。4位数，1K+的价格令人需要考虑。</p><h2 id="ikbc"><a href="#ikbc" class="headerlink" title="ikbc"></a>ikbc</h2><p>另外一个选择就是<code>ikbc poker</code>键盘。足够小，功能还行，价格也可以接受。考虑入手了。</p><p>春节假期回杭州后，想写东西。但是笔记本带的键盘在支架上用起来实在不稳定。就下单了。</p><p>第二天就收到了快递</p><p><img data-src="https://farm8.staticflickr.com/7849/47009038432_46494c5985_k_d.jpg" alt="键盘快递"></p><p><img data-src="https://farm8.staticflickr.com/7828/46147600575_dcea903935_k_d.jpg" alt="Caps灯"></p><p><img data-src="https://farm8.staticflickr.com/7921/33185981868_9dbd2576a9_k_d.jpg" alt="层级指示等"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;刚刚买了键盘，记一下入手的过程&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="Life" scheme="https://whitecodes.github.io/tags/Life/"/>
     
   </entry>
   
