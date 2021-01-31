@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.0">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,25 +15,23 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  
-  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.min.css">
-  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"whitecodes.github.io","root":"/","scheme":"Mist","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false};
+    var CONFIG = {"hostname":"whitecodes.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.2.0","exturl":false,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-
-  <meta property="og:type" content="website">
+<meta property="og:type" content="website">
 <meta property="og:title" content="white blog">
 <meta property="og:url" content="https://whitecodes.github.io/archives/2021/index.html">
 <meta property="og:site_name" content="white blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="white">
 <meta name="twitter:card" content="summary">
+
 
 <link rel="canonical" href="https://whitecodes.github.io/archives/2021/">
 
@@ -45,8 +45,7 @@
     lang   : 'zh-CN'
   };
 </script>
-
-  <title>归档 | white blog</title>
+<title>归档 | white blog</title>
   
     <script>
       function sendPageView() {
@@ -64,8 +63,6 @@
       document.addEventListener('pjax:complete', sendPageView);
       sendPageView();
     </script>
-
-
 
 
 
@@ -108,15 +105,14 @@
 <link rel="alternate" href="/atom.xml" title="white blog" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
+    <div class="toggle" aria-label="切换导航栏" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -142,22 +138,10 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
   </ul>
 </nav>
 
@@ -165,9 +149,9 @@
 
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -185,17 +169,18 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">white</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
@@ -212,7 +197,7 @@
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/whitecodes" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whitecodes" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
       </span>
@@ -229,36 +214,34 @@
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner archive posts-collapse">
 
-        <div class="content archive">
-          
 
   
   
   
   <div class="post-block">
-    <div class="posts-collapse">
+    <div class="post-content">
       <div class="collection-title">
         
         <span class="collection-header">很好! 目前共计 90 篇日志。 继续努力。</span>
@@ -271,8 +254,7 @@
 
   <article itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-
-      <div class="post-meta">
+      <div class="post-meta-container">
         <time itemprop="dateCreated"
               datetime="2021-01-01T21:36:49+08:00"
               content="2021-01-01">
@@ -286,13 +268,13 @@
           </a>
       </div>
 
+      
     </header>
   </article>
 
   <article itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-
-      <div class="post-meta">
+      <div class="post-meta-container">
         <time itemprop="dateCreated"
               datetime="2021-01-01T21:36:39+08:00"
               content="2021-01-01">
@@ -306,6 +288,7 @@
           </a>
       </div>
 
+      
     </header>
   </article>
 
@@ -316,12 +299,6 @@
   
   
 
-  
-
-
-
-        </div>
-        
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -330,7 +307,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -339,18 +316,16 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
+  <footer class="footer">
+    <div class="footer-inner">
   <div class="languages">
     <label class="lang-select-label">
       <i class="fa fa-language"></i>
@@ -370,135 +345,45 @@
     </select>
   </div>
 
-        
 
 <div class="copyright">
-  
   &copy; 2016 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">white</span>
-    <span class="post-meta-divider">|</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+      <i class="fa fa-chart-line"></i>
     </span>
-      <span class="post-meta-item-text">站点总字数：</span>
+      <span>站点总字数：</span>
     <span title="站点总字数">74k</span>
-    <span class="post-meta-divider">|</span>
+  </span>
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+      <span>站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">1:08</span>
+  </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-  <script src="//cdn.jsdelivr.net/npm/firebase@7/firebase-app.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/firebase@7/firebase-firestore.js"></script>
-  <script>
-    firebase.initializeApp({
-      apiKey   : 'AIzaSyCQBODP3i10hwL8grQFhO_qR03McmZVk3U',
-      projectId: 'hexo-count-f2bfc'
-    });
-
-    function getCount(doc, increaseCount) {
-      // IncreaseCount will be false when not in article page
-      return doc.get().then(d => {
-        let count = 0;
-        if (!d.exists) { // Has no data, initialize count
-          if (increaseCount) {
-            doc.set({
-              count: 1
-            });
-            count = 1;
-          }
-        } else { // Has data
-          count = d.data().count;
-          if (increaseCount) {
-            // If first view this article
-            doc.set({ // Increase count
-              count: count + 1
-            });
-            count++;
-          }
-        }
-
-        return count;
-      });
-    }
-
-    function appendCountTo(el) {
-      return count => {
-        el.innerText = count;
-      }
-    }
-  </script>
-  <script data-pjax>
-    (function() {
-      const db = firebase.firestore();
-      const articles = db.collection('articles');
-
-      if (CONFIG.page.isPost) { // Is article page
-        const title = document.querySelector('.post-title').innerText.trim();
-        const doc = articles.doc(title);
-        let increaseCount = CONFIG.hostname === location.hostname;
-        if (localStorage.getItem(title)) {
-          increaseCount = false;
-        } else {
-          // Mark as visited
-          localStorage.setItem(title, true);
-        }
-        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
-      } else if (CONFIG.page.isHome) { // Is index page
-        const promises = [...document.querySelectorAll('.post-title')].map(element => {
-          const title = element.innerText.trim();
-          const doc = articles.doc(title);
-          return getCount(doc);
-        });
-        Promise.all(promises).then(counts => {
-          const metas = document.querySelectorAll('.firestore-visitors-count');
-          counts.forEach((val, idx) => {
-            appendCountTo(metas[idx])(val);
-          });
-        });
-      }
-    })();
-  </script>
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/next-theme/pjax@0/pjax.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-  <script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script>
 var pjax = new Pjax({
   selectors: [
     'head title',
@@ -510,7 +395,8 @@ var pjax = new Pjax({
   ],
   analytics: false,
   cacheBust: false,
-  scrollTo : !CONFIG.bookmark.enable
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
 });
 
 document.addEventListener('pjax:success', () => {
@@ -539,19 +425,76 @@ document.addEventListener('pjax:success', () => {
 
 
 
+  
 
+  <script src="//cdn.jsdelivr.net/npm/firebase@8.2.1/firebase-app.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/firebase@8.2.1/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : 'AIzaSyCQBODP3i10hwL8grQFhO_qR03McmZVk3U',
+      projectId: 'hexo-count-f2bfc'
+    });
 
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        // Has no data, initialize count
+        let count = d.exists ? d.data().count : 0;
+        // If first view this article
+        if (increaseCount) {
+          // Increase count
+          count++;
+          doc.set({
+            count
+          });
+        }
+        return count;
+      });
+    }
 
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      };
+    }
+  </script>
+  <script data-pjax>
+    (function() {
+      const db = firebase.firestore();
+      const articles = db.collection('articles');
 
-
-
-
+      if (CONFIG.page.isPost) {
+        // Fix issue #118
+        // https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
+        const title = document.querySelector('.post-title').textContent.trim();
+        const doc = articles.doc(title);
+        let increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) {
+        const promises = [...document.querySelectorAll('.post-title')].map(element => {
+          const title = element.textContent.trim();
+          const doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          const metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
 
 
     <div class="pjax">
-  
 
-  
 
     </div>
 </body>
