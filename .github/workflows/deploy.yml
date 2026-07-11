@@ -32,7 +32,10 @@ jobs:
           path: theme
 
       - name: Overlay blog content onto theme
-        run: rsync -a blog/src/ theme/src/ && rsync -a blog/public/ theme/public/
+        run: |
+          rm -rf theme/src/content/posts
+          rsync -a blog/src/ theme/src/
+          rsync -a blog/public/ theme/public/
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
