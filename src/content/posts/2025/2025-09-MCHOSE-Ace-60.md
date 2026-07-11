@@ -1,6 +1,6 @@
 ---
 title: 迈从Ace60pro键盘
-pubDate: 2025-09-7 15:32:30
+published: "2025-09-07 15:32:30"
 tags:
 - Life
 ---

@@ -1,6 +1,6 @@
 ---
 title: Samsung Galaxy Watch6
-pubDate: 2025-07-20 15:32:30
+published: "2025-07-20 15:32:30"
 tags:
 - Life
 - App
