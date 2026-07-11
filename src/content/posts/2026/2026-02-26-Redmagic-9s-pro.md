@@ -1,7 +1,7 @@
 ---
 title: 红魔9s Pro
-date: 
-tag:
+pubDate: 2026-06-23 15:32:30
+tags:
 - Life
 - App
 ---
