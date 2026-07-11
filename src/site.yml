@@ -1,0 +1,66 @@
+site:
+  title: "white blog"
+  subtitle: ""
+  url: "https://whitecodes.github.io"
+  lang: "cn"
+  author: "WHITE"
+  email: ""
+  favicon: "/images/favicon.webp"
+  banner: ""
+  og_image: "/images/og.webp"
+
+profile:
+  avatar: "/images/avatar.jpg"
+  name: "WHITE"
+  bio: "YOU ARE BEING WATCHED"
+  links:
+    - name: "GitHub"
+      url: "https://github.com/whitecodes"
+    - name: "Twitter"
+      url: "https://x.com/whitevening"
+    - name: "Mastodon"
+      url: "https://moe.cat/@white"
+
+nav:
+  - Home: "/"
+  - Archive: "/archive/"
+  - Series: "/seri/"
+  - Links: "/links/"
+  - About: "/about/"
+
+features:
+  breadcrumb: true
+  comments: true
+  search: true
+  donate: false
+  rss_feed: true
+  sitemap: true
+  related_posts: true
+  series: true
+  license: true
+
+seo:
+  enable_json_ld: false
+  breadcrumb: true
+  keywords: "astro, theme, blog, lonetrail"
+  same_as: []
+
+services:
+  posthog:
+    api_key: ""
+    api_host: "https://app.posthog.com"
+  webmention:
+    url: ""
+  blogsclub:
+    badge_url: ""
+  issue_tracker:
+    url: ""
+
+trusted_domains:
+  - "lonetrail.vercel.app"
+
+copyright:
+  text: "Lonetrail Demo"
+  site_name: "Lonetrail"
+  license: "MIT"
+  license_url: "https://opensource.org/licenses/MIT"
