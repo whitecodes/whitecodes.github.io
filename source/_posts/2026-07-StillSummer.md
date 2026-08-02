@@ -27,12 +27,13 @@ PackyCode注册送的1元额度3天花完了，考虑充值。看到50起充，�
 今天在[S1论坛](https://stage1st.com/2b/forum.php?mod=viewthread&tid=2286754)看到了[基元律动邀请注册](https://tokenrhythm.studio/i/rf_tr_CjXLWTKT4Xmn7xnuLJajTGtj)直接送68额度。注册下。由DeepSeek提供，白天看到的还只有预览版。晚上已经上了正式版。
 正好想尝试一下其他code agent,用 grok-build 来接入。
 中午的时候刚接入，下午的时候就用到了。
+晚上用grok的时候碰到了400错误，不清楚是不是适配的问题
 
 ## Garmin 同步到 Pokemon Sleep
 
 又是睡眠数据同步的问题。在凌晨更新Garmin Connect版本后就是没有往Health Connect中写入过。尝试了重启应用、清除数据、回退到上个版本、回退到上个月版本，都不行。
 直接让grok-build跑诊断。跑之前切换了代理出口。grok-build在强制重启Garmin Connect后，发现Health Connect的选项又出现了。然后就可以同步了。
-总结还是网络出口的问题。之后不升级Garmin Connect了。
+总结还是网络出口的问题。不升级Garmin Connect, Pokemon sleep 不认，直接不去读数据了。
 用的过程中，因为显示了思考过程，就看到字符在刷新滚动，感觉很快。
 不花钱的继续用着。
 
